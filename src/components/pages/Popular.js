@@ -14,13 +14,53 @@ const Popular = () => {
         const {data} = await url
         console.log(data)
         await setPopular(data.results)
+        await setPopular(data.total_page)
+        await setPopular(data.results)
     }
 
     console.log(popular)
-
+let buttons=""
     useEffect(() => {
-        getPopular()
-    }, [])
+        getPopular( currentPage)
+    }, [currentPage])
+    if (total > 0 && currentPage===1){
+        buttons = <>
+            <button onClick={()=> setCurrrent(currentPage +1)}
+            className="btn btn-primary mx-2 p-2 "
+            >
+            next
+            </button>
+        </>
+    } else if (total > 0 && currentPage>1 && currentPage !== total){
+        buttons = <>
+            <button onClick={()=> setCurrrent(currentPage -1)}
+                    className="btn btn-primary mx-3 p-2 "
+            >
+                next
+            </button>
+        </>
+    } else if (total > 0 && currentPage === total ){
+        buttons = <>
+            <button onClick={()=> setCurrrent(currentPage -1)}
+                    className="btn btn-primary mx-2 p-2 "
+            >
+                back
+            </button>
+        </>
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <div className={'container'}>
             <div className={'row'}>
